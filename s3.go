@@ -97,7 +97,7 @@ func NewS3Datastore(conf Config) (*S3Bucket, error) {
 	creds := credentials.NewChainCredentials(providers)
 
 	if conf.RegionEndpoint != "" {
-		awsConfig.WithS3ForcePathStyle(true)
+		awsConfig.WithS3ForcePathStyle(false)
 		awsConfig.WithEndpoint(conf.RegionEndpoint)
 	}
 
