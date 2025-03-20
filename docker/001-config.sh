@@ -9,7 +9,7 @@ cp ${IPFS_PATH}/config ${IPFS_PATH}/config_bak
 # We inject the S3 plugin datastore
 # Important: Make sure your fill out the optionnal parameters $CLUSTER_S3_BUCKET, $CLUSTER_AWS_KEY, $CLUSTER_AWS_SECRET in the cloudformation parameters
 cat ${IPFS_PATH}/config_bak | \
-jq ".Datastore.Spec = { 
+jq ".Datastore.Spec = {
     mounts: [
         {
           child: {
@@ -18,7 +18,8 @@ jq ".Datastore.Spec = {
             bucket: \"${CLUSTER_S3_BUCKET}\",
             rootDirectory: \"${CLUSTER_PEERNAME}\",
             accessKey: \"${CLUSTER_AWS_KEY}\",
-            secretKey: \"${CLUSTER_AWS_SECRET}\"
+            secretKey: \"${CLUSTER_AWS_SECRET}\",
+            regionEndpoint: \"${REGION_ENDPOINT}\"
           },
           mountpoint: \"/blocks\",
           prefix: \"s3.datastore\",
@@ -34,7 +35,7 @@ jq ".Datastore.Spec = {
           prefix: \"leveldb.datastore\",
           type: \"measure\"
         }
-    ], 
+    ],
     type: \"mount\"
 }" > ${IPFS_PATH}/config
 

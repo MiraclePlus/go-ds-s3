@@ -18,6 +18,8 @@ ENV SRC_DIR /kubo
 WORKDIR $SRC_DIR
 
 # Install the plugin and build ipfs
+ENV GO111MODULE on
+ENV GOPROXY https://goproxy.cn,direct
 RUN go get github.com/MiraclePlus/go-ds-s3@latest
 RUN echo "\ns3ds github.com/MiraclePlus/go-ds-s3/plugin 0" >> plugin/loader/preload_list
 RUN make build || : #first build will fail
